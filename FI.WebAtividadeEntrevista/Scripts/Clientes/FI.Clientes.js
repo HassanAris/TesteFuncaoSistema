@@ -7,7 +7,6 @@
         e.preventDefault();
 
         var tabela = document.body.querySelectorAll("table td:nth-child(1),table td:nth-child(2)");
-
         var beneficiarios = [];
         for (var x = 0; x < tabela.length; x += 2) {
             e
@@ -70,18 +69,17 @@ function ModalBeneficiario() {
         '                    </button>                                                                                                                                                       ' +
         '                </div>                                                                                                                                                              ' +
         '                <div class="modal-body">                                                                                                                                            ' +
-
         '                    <div class="row">                                                                                                                                               ' +
         '                        <div class="col-md-4">                                                                                                                                      ' +
         '                            <div class="form-group">                                                                                                                                ' +
         '                                <label for="CPF">CPF:</label>                                                                                                                       ' +
-        '                                <input required="required" type="text" class="form-control" id="InputCPFBenef" name="CPF" placeholder="Ex.: 010.011.111-00" maxlength="15"">                   ' +
+        '                                <input required="required" type="text" class="form-control" id="InputCPFBenef" name="CPF" placeholder="Ex.: 010.011.111-00" maxlength="15"">        ' +
         '                            </div>                                                                                                                                                  ' +
         '                        </div>                                                                                                                                                      ' +
         '                        <div class="col-md-6">                                                                                                                                      ' +
         '                            <div class="form-group">                                                                                                                                ' +
         '                                <label for="Nome">Nome:</label>                                                                                                                     ' +
-        '                                <input required="required" type="text" class="form-control" id="InputNomeBenef" name="Nome" placeholder="Ex.: João" maxlength="50">                           ' +
+        '                                <input required="required" type="text" class="form-control" id="InputNomeBenef" name="Nome" placeholder="Ex.: João" maxlength="50">                 ' +
         '                            </div>                                                                                                                                                  ' +
         '                        </div>                                                                                                                                                      ' +
         '                        <div class="col-md-2" style="margin-top: 4.4%;">                                                                                                            ' +
@@ -108,7 +106,7 @@ function ModalBeneficiario() {
         '                </div>                                                                                                                                                              ' +
         '            </div>                                                                                                                                                                  ' +
         '        </div>                                                                                                                                                                      ' +
-        '    </div>                                                                                                                                                                          ';
+        '    </div>                                                                                                                                                                          ' ;
 
 
     $('body').append(modal);
@@ -129,10 +127,10 @@ function IncluirBeneficiarioTable() {
     if (cpf != '' || nome != '') {
         var linha = '<tr> ' +
             '        <td class="col-md-4" id="CPFBenef" >' + cpf + '</td>                                      ' +
-            '        <td class="col-md-4" id="NomeBenef">' + nome + '</td>                                    ' +
-            '        <td>                                                                                     ' +
-            '            <button class="btn btn-primary btn-md" id="AlterarBenef">Alterar</button>                              ' +
-            '            <button class="btn btn-primary btn-md" id="ExcluirBenef" value=0 >Excluir</button>   ' +
+            '        <td class="col-md-4" id="NomeBenef">' + nome + '</td>                                     ' +
+            '        <td>                                                                                      ' +
+            '            <button class="btn btn-primary btn-md" id="AlterarBenef">Alterar</button>             ' +
+            '            <button class="btn btn-primary btn-md" id="ExcluirBenef" value=0 >Excluir</button>    ' +
             '        </td>' +
             '   </tr > ';
     }
@@ -199,7 +197,7 @@ function ModalDialog(titulo, texto) {
         '                </div>                                                                                             ' +
         '            </div><!-- /.modal-content -->                                                                         ' +
         '  </div><!-- /.modal-dialog -->                                                                                    ' +
-        '</div> <!-- /.modal -->                                                                                        ';
+        '</div> <!-- /.modal -->                                                                                            ';
 
     $('body').append(texto);
     $('#' + random).modal('show');

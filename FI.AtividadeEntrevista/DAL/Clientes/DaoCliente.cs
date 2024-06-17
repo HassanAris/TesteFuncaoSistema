@@ -138,6 +138,7 @@ namespace FI.AtividadeEntrevista.DAL
             parametros.Add(new System.Data.SqlClient.SqlParameter("Email", cliente.Email));
             parametros.Add(new System.Data.SqlClient.SqlParameter("Telefone", cliente.Telefone));
             parametros.Add(new System.Data.SqlClient.SqlParameter("ID", cliente.Id));
+
             string beneficiariosJson = "";
             if (cliente.Beneficiario != null)
             {
@@ -149,10 +150,8 @@ namespace FI.AtividadeEntrevista.DAL
             }
             parametros.Add(new System.Data.SqlClient.SqlParameter("BeneficiariosJson", beneficiariosJson));
 
-
             base.Executar("FI_SP_AltCliente", parametros);
         }
-
 
         /// <summary>
         /// Excluir Cliente
@@ -169,68 +168,41 @@ namespace FI.AtividadeEntrevista.DAL
 
         private List<DML.Cliente> Converter(DataSet ds)
         {
-            List<DML.Cliente> lista = new List<DML.Cliente>();
-            if (ds != null && ds.Tables != null && ds.Tables.Count > 0 && ds.Tables[0].Rows.Count > 0 && ds.Tables.Count > 1)
-            {
-                foreach (DataRow row in ds.Tables[0].Rows)
-                {
-                    DML.Cliente cli = new DML.Cliente();
-                    cli.Id = row.Field<long>("Id");
-                    cli.CEP = row.Field<string>("CEP");
-                    cli.CPF = row.Field<string>("CPF");
-                    cli.Cidade = row.Field<string>("Cidade");
-                    cli.Email = row.Field<string>("Email");
-                    cli.Estado = row.Field<string>("Estado");
-                    cli.Logradouro = row.Field<string>("Logradouro");
-                    cli.Nacionalidade = row.Field<string>("Nacionalidade");
-                    cli.Nome = row.Field<string>("Nome");
-                    cli.Sobrenome = row.Field<string>("Sobrenome");
-                    cli.Telefone = row.Field<string>("Telefone");
+            var lista = new List<DML.Cliente>();
 
-                    // Verifica se a coluna Beneficiarios existe no resultado do DataSet
-                    if (ds.Tables[0].Columns.Contains("Beneficiarios"))
-                    {
-                        var beneficiariosJson = row.Field<string>("Beneficiarios");
-                        if (!string.IsNullOrEmpty(beneficiariosJson))
-                        {
-                            // Desserializando a lista de beneficiários
-                            List<Beneficiario> beneficiarios = JsonConvert.DeserializeObject<List<Beneficiario>>(beneficiariosJson);
-                            cli.Beneficiario = beneficiarios;
-                        }
-                        else
-                        {
-                            cli.Beneficiario = new List<Beneficiario>(); // Se não houver beneficiários, inicializa uma lista vazia
-                        }
-                    }
-                    lista.Add(cli);
-                }
+            if (ds == null || ds.Tables == null || ds.Tables.Count == 0 || ds.Tables[0].Rows.Count == 0)
+            {
+                return lista;
             }
-            else
+
+            foreach (DataRow row in ds.Tables[0].Rows)
             {
-
-                foreach (DataRow row in ds.Tables[0].Rows)
+                var cli = new DML.Cliente
                 {
-                    DML.Cliente cli = new DML.Cliente();
-                    cli.Id = row.Field<long>("Id");
-                    cli.CEP = row.Field<string>("CEP");
-                    cli.CPF = row.Field<string>("CPF");
-                    cli.Cidade = row.Field<string>("Cidade");
-                    cli.Email = row.Field<string>("Email");
-                    cli.Estado = row.Field<string>("Estado");
-                    cli.Logradouro = row.Field<string>("Logradouro");
-                    cli.Nacionalidade = row.Field<string>("Nacionalidade");
-                    cli.Nome = row.Field<string>("Nome");
-                    cli.Sobrenome = row.Field<string>("Sobrenome");
-                    cli.Telefone = row.Field<string>("Telefone");
+                    Id = row.Field<long>("Id"),
+                    CEP = row.Field<string>("CEP"),
+                    CPF = row.Field<string>("CPF"),
+                    Cidade = row.Field<string>("Cidade"),
+                    Email = row.Field<string>("Email"),
+                    Estado = row.Field<string>("Estado"),
+                    Logradouro = row.Field<string>("Logradouro"),
+                    Nacionalidade = row.Field<string>("Nacionalidade"),
+                    Nome = row.Field<string>("Nome"),
+                    Sobrenome = row.Field<string>("Sobrenome"),
+                    Telefone = row.Field<string>("Telefone"),
+                    Beneficiario = new List<Beneficiario>()
+                };
 
-                    //string jsonBeneficiarios = row.Field<string>("Beneficiarios");
-
-
-                    cli.Beneficiario = row.Field<string>("Beneficiarios") == null ? new List<Beneficiario>() : JsonConvert.DeserializeObject<List<Beneficiario>>(row.Field<string>("Beneficiarios"));
-
-                    lista.Add(cli);
+                if (row.Table.Columns.Contains("Beneficiarios"))
+                {
+                    var beneficiariosJson = row.Field<string>("Beneficiarios");
+                    if (!string.IsNullOrEmpty(beneficiariosJson))
+                    {
+                        cli.Beneficiario = JsonConvert.DeserializeObject<List<Beneficiario>>(beneficiariosJson) ?? new List<Beneficiario>();
+                    }
                 }
 
+                lista.Add(cli);
             }
 
             return lista;

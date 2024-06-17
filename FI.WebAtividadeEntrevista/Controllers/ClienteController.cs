@@ -119,8 +119,6 @@ namespace WebAtividadeEntrevista.Controllers
                     Telefone = cliente.Telefone,
                     Beneficiario = cliente.Beneficiario,
                 };
-
-
             }
 
             return View(model);
@@ -172,7 +170,5 @@ namespace WebAtividadeEntrevista.Controllers
 
             return erros;
         }
-
-
     }
 }
