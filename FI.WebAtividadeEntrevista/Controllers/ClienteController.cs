@@ -26,7 +26,7 @@ namespace WebAtividadeEntrevista.Controllers
         public JsonResult Incluir(ClienteModel model)
         {
             BoCliente bo = new BoCliente();
-            bool cpfExistente = !bo.VerificarExistencia(model.CPF);
+            bool cpfExistente = bo.VerificarExistencia(model.CPF);
 
             if (!ModelState.IsValid || !cpfExistente)
             {
