@@ -74,8 +74,7 @@ namespace FI.AtividadeEntrevista.DAL
             List<System.Data.SqlClient.SqlParameter> parametros = new List<System.Data.SqlClient.SqlParameter>();
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", CPF));
-            if (id > 0) 
-                parametros.Add(new System.Data.SqlClient.SqlParameter("ID", id));
+            parametros.Add(new System.Data.SqlClient.SqlParameter("ID", id));
 
             DataSet ds = base.Consultar("FI_SP_VerificaCliente", parametros);
 
