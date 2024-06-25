@@ -76,17 +76,7 @@ namespace FI.AtividadeEntrevista.DAL
 
             parametros.Add(new System.Data.SqlClient.SqlParameter("CPF", CPF));
             parametros.Add(new System.Data.SqlClient.SqlParameter("ID", id));
-            //parametros.Add(new System.Data.SqlClient.SqlParameter("IsValid", SqlDbType.Bit));
-            //parametros.Add(new System.Data.SqlClient.SqlParameter
-            //{
-            //    ParameterName = "IsValid",
-            //    SqlDbType = SqlDbType.Bit,
-            //    Direction = ParameterDirection.Output
-            //});
-  
             DataSet ds = base.Consultar("FI_SP_VerificaCliente", parametros);
-
-
             return ds.Tables[0].Rows.Count > 0;
         }
 
