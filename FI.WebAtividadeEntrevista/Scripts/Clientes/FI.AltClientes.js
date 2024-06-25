@@ -152,7 +152,7 @@ function IncluirBeneficiarioTable(cpf, nome) {
             '        <td class="col-md-4" id="CPFBenef">' + cpf + '</td>                                      ' +
             '        <td class="col-md-4" id="NomeBenef">' + nome + '</td>                                    ' +
             '        <td>                                                                                     ' +
-            '            <button class="btn btn-primary btn-md">Alterar</button>                              ' +
+            '            <button class="btn btn-primary btn-md" id="AlterarBenef">Alterar</button>            ' +
             '            <button class="btn btn-primary btn-md" id="ExcluirBenef" value=0 >Excluir</button>   ' +
             '        </td>                                                                                    ' +
             '   </tr >                                                                                        ' ;
@@ -164,6 +164,12 @@ function IncluirBeneficiarioTable(cpf, nome) {
 }
 $(document).on('click', '#ExcluirBenef', function () {
     $(this).parent().parent().remove();
+});
+
+$(document).on('click', '#AlterarBenef', function () {
+    $('#InputCPFBenef').val($(this).closest('tr').find('td:first').text().trim());
+    $("#InputNomeBenef").val($(this).closest('tr').find('td:eq(1)').text().trim());
+    $(this).closest('tr').remove();
 });
 
 $('#CPF').change(function () {
